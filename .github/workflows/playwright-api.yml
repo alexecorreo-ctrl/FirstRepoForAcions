@@ -1,0 +1,46 @@
+name: GitHub API Automation Run
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  run-api-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Download your code from your repository into the runner environment
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Set up a secure, clean Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    # 3. Install all dependencies required by your framework
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest playwright pytest-playwright pytest-html jsonschema python-dotenv
+
+    # 4. Initialize Playwright system dependencies
+    - name: Install Playwright
+      run: playwright install --with-deps
+
+    # 5. Execute your Pytest script while pulling secrets into the environment variables
+    - name: Execute API Tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GHUB_TOKEN }}
+        GITHUB_USER: ${{ secrets.MY_GHUB_USER }}
+      run: python -m pytest test_ghub_pro.py -s --html=report.html --self-contained-html
+
+    # 6. Save the generated HTML test report as an artifact you can download later
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v4
+      if: always() # Ensures report uploads even if tests fail
+      with:
+        name: playwright-execution-report
+        path: report.html
