@@ -1,3 +1,4 @@
+HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -216,3 +217,22 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Ignore secret environment variables
+.env
+
+# Ignore python environment system folders
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Ignore local run artifacts and cache
+__pycache__/
+.pytest_cache/
+*.html
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+# Ignore VS Code settings
+.vscode/        
+5aae7d3 (Relocate test assets and pages to a clean tests structure)
