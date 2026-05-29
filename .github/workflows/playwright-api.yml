@@ -36,7 +36,7 @@ jobs:
         # Match these left names exactly to your Python os.environ.get() keys
         MY_GITHUB_TOKEN: ${{ secrets.MY_GItHUB_TOKEN }}
         GITHUB_USER: ${{ secrets.MY_GHUB_USER }}
-      run: python -m pytest test_ghub_pro.py -s --html=report.html --self-contained-html
+      run: python -m pytest tests/test_ghub_pro.py -s --html=report.html --self-contained-html
 
     #-# name: Execute API Tests
      # env:
