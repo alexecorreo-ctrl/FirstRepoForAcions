@@ -1,9 +1,15 @@
 import pytest
 import uuid
 from playwright.sync_api import Page, expect
+import os
+# This looks for an environment variable named 'MY_GITHUB_TOKEN'
+token = os.environ.get("MY_GITHUB_TOKEN")
+if not token:
+    raise ValueError("Error: MY_GITHUB_TOKEN environment variable is not set!")
+
 
 # PASTE YOUR TOKEN HERE (or use an environment variable)
-GITHUB_TOKEN = "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"
+#GITHUB_TOKEN = "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"
 
 def test_create_github_repo(page: Page):
     # 1. Setup headers with Authentication

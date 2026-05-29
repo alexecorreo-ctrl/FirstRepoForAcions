@@ -1,7 +1,13 @@
 from playwright.sync_api import Page, expect
 
+import os
+# This looks for an environment variable named 'MY_GITHUB_TOKEN'
+token = os.environ.get("MY_GITHUB_TOKEN")
+if not token:
+    raise ValueError("Error: MY_GITHUB_TOKEN environment variable is not set!")
+
 # Ensure this is your Classic token with 'delete_repo' scope
-GITHUB_TOKEN = "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"
+#GITHUB_TOKEN = "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"
 USERNAME = "alexecorreo-ctrl"  # Your GitHub username
 
 def test_bulk_delete_test_repos(page: Page):
